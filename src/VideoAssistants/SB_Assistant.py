@@ -3,8 +3,8 @@ import os
 from src import project_path as pp
 import numpy as np
 
-class Assistant:
 
+class Assistant:
     saved_images_folder_path = os.path.join(pp.saved_results_folder_path, 'SB')
     os.makedirs(saved_images_folder_path, exist_ok=True)
 
@@ -68,7 +68,6 @@ class Assistant:
         ))
         print('=====' * 20)
 
-
     def get_arena_center(self, frame_gray):
         circles = cv2.HoughCircles(frame_gray.copy(),
                                    cv2.HOUGH_GRADIENT,
@@ -86,7 +85,7 @@ class Assistant:
 
         for circle in circles[0]:
             if circle[0] > arena_center_limit_left and circle[0] < arena_center_limit_right and circle[1] > arena_center_limit_top and circle[1] < arena_center_limit_bottom:
-                    return circle[0], circle[1], circle[2]
+                return circle[0], circle[1], circle[2]
 
         return None, None, None
 
@@ -105,7 +104,6 @@ class Assistant:
         X, Y = np.ogrid[
                0:self.video_properties['spatial_resolution'][1],
                0:self.video_properties['spatial_resolution'][0]]
-
 
         annotated_frame = cv2.adaptiveThreshold(annotated_frame,
                                                 maxValue=255,

@@ -2,6 +2,8 @@ import os
 import cv2
 from matplotlib import pyplot as plt
 import project_path as pp
+import numpy as np
+
 
 class Annotator():
 
@@ -15,22 +17,6 @@ class Annotator():
             self.video = cv2.VideoCapture(self.video_file_path)
             self.video_properties = {}
             self.arena_landmarks = {}
-
-
-    def display_frame(self, image):
-        cv2.namedWindow(self.video_file_name, cv2.WINDOW_NORMAL)
-        cv2.setWindowProperty(self.video_file_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-        cv2.imshow(self.video_file_name, image)
-        while True:
-            key = cv2.waitKey()
-            if key == 27:
-                cv2.destroyAllWindows()
-                break
-            if key == ord('s'):
-                # Save Function Here
-                print('Image Saved Successfully!')
-                cv2.destroyAllWindows()
-                break
 
     def build_video_properties_dictionary(self):
         if self.video == None:
@@ -63,3 +49,22 @@ class Annotator():
             self.video_properties['spatial_resolution'][1]
         ))
         print('=====' * 20)
+
+    def __update_frame_in_annotator_video(self):
+        pass
+
+    def start_annotating_window(self):
+        self.video.set(cv2.CAP_PROP_POS_FRAMES, 0)
+
+        plt.figure(num=self.video_file_name)
+
+        plt.subplot2grid(shape=(10, 10), loc=(0, 1), rowspan=10, colspan=9)
+        image_ax = plt.imshow(np.zeros(shape=(100, 100, 3), dtype=np.float64))
+        while self.video.isOpened():
+            print(True)
+            _, frame = self.video.read()
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) / 255
+            image_ax.set_data(frame)
+            plt.draw()
+
+        self.video.set(cv2.CAP_PROP_POS_FRAMES, 0)

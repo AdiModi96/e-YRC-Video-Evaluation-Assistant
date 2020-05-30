@@ -12,4 +12,4 @@ for video_file_name in os.listdir(cropped_data_folder_path):
     annotator = Annotator(video_file_path=video_file_path)
     annotator.build_video_properties_dictionary()
     annotator.pretty_print_video_properties()
-    # annotator.annotate()
+    annotator.start_annotating_window()

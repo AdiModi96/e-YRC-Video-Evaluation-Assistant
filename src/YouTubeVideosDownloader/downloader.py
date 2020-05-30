@@ -79,7 +79,7 @@ def main():
         print('Error: Not connected to the internet. Quitting...')
         sys.exit(0)
 
-    csv_file_path = os.path.join(pp.resrc_folder_path, 'YouTube Video Links.csv')
+    csv_file_path = os.path.join(pp.resrc_folder_path, 'YouTubeVideosDownloader', 'YouTube Video Links.csv')
     data_dictionary = generate_data_dictionary_from_csv(csv_file_path)
 
     processes = []
