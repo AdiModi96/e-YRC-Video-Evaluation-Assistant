@@ -1,11 +1,11 @@
 import cv2
 import os
-import project_path as pp
+from src import project_path as pp
 import numpy as np
 
 class SupplyBot:
 
-    saved_images_folder_path = os.path.join(pp.saved_images_folder_path, 'SB')
+    saved_images_folder_path = os.path.join(pp.saved_results_folder_path, 'SB')
     os.makedirs(saved_images_folder_path, exist_ok=True)
 
     def __init__(self, video_file_path):

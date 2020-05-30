@@ -1,6 +1,6 @@
 import os
 import sys
-import project_path as pp
+from src import project_path as pp
 import csv
 from pytube import YouTube
 import requests
@@ -18,14 +18,14 @@ def is_internet_connected():
 
 def download_theme(theme, teams_list):
     # Creating Theme folder path to save videos
-    theme_folder_path = os.path.join(pp.data_folder_path, theme)
-    if not os.path.isdir(theme_folder_path):
-        os.mkdir(theme_folder_path)
+    download_folder_path = os.path.join(pp.data_folder_path, theme, '01 - Raw')
+    if not os.path.isdir(download_folder_path):
+        os.makedirs(download_folder_path, exist_ok=True)
 
     print('Downloading Theme {}...'.format(theme), '\t')
 
     # Creating logger
-    with open(os.path.join(pp.logs_folder_path, theme + '.csv'), 'w', newline='') as file:
+    with open(os.path.join(download_folder_path, 'log.csv'), 'w', newline='') as file:
         csv_log_file = csv.writer(file, delimiter=',')
         csv_log_file.writerow(['Team Number', 'Task Type', 'Successful/Unsuccessful'])
 
@@ -41,7 +41,7 @@ def download_theme(theme, teams_list):
             try:
                 yt = YouTube(team_video_submission_link)
                 yt.streams.get_highest_resolution().download(
-                    output_path=theme_folder_path, filename=str(team_number) + "_" + team_task_type)
+                    output_path=download_folder_path, filename=str(team_number) + "_" + team_task_type)
                 csv_log_file.writerow([team_number, team_task_type, 'Successful'])
             except:
                 csv_log_file.writerow([team_number, team_task_type, 'Unsuccessful'])
