@@ -3,7 +3,7 @@ import os
 from src import project_path as pp
 import numpy as np
 
-class SupplyBot:
+class Assistant:
 
     saved_images_folder_path = os.path.join(pp.saved_results_folder_path, 'SB')
     os.makedirs(saved_images_folder_path, exist_ok=True)
@@ -30,7 +30,7 @@ class SupplyBot:
                 cv2.destroyAllWindows()
                 break
             if key == ord('s'):
-                cv2.imwrite(os.path.join(SupplyBot.saved_images_folder_path,
+                cv2.imwrite(os.path.join(Assistant.saved_images_folder_path,
                                          self.video_file_name.split('.')[0] + '.png'), image)
                 print('Image Saved Successfully!')
                 cv2.destroyAllWindows()
